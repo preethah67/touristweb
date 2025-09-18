@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Trip</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+        /* Basic styling for the body and container */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        /* Styling for labels */
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        /* Styling for text, email inputs and select dropdown */
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container select {
+            width: calc(100% - 20px); /* Adjusting for padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding is included in the element's total width/height */
+        }
+        /* Styling for the submit button */
+        .form-container input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div id="bookingMessage" style="display:none; padding: 10px; margin-bottom: 20px; text-align: center; border-radius: 5px;"></div>
+        
+        <h1>Book Your Dream Trip</h1>
+        <form name="bookingForm" method="POST" action="booking.php">
+            <label for="ffirst">First Name:</label>
+            <input type="text" id="ffirst" name="ffirst" required>
+
+            <label for="flast">Last Name:</label>
+            <input type="text" id="flast" name="flast" required>
+
+            <label for="femail">Email:</label>
+            <input type="email" id="femail" name="femail" required>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="fphone">Phone Number:</label>
+            <input type="text" id="fphone" name="fphone" required>
+
+            <label for="fdesti">Destination:</label>
+            <select id="fdesti" name="fdesti" required>
+                <option value="">Select a Destination</option>
+                <option value="Paris">Paris</option>
+                <option value="Tokyo">Tokyo</option>
+                <option value="New York">New York</option>
+                <option value="Rome">Rome</option>
+                <option value="Kyoto">Kyoto</option>
+                </select>
+
+            <input type="submit" name="submit" value="Book Now">
+        </form>
+    </div>
+
+    <script>
+        // Executes when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status'); // Get the 'status' parameter from the URL
+            const bookingMessageDiv = document.getElementById('bookingMessage'); // Get the message div element
+
+            // Check if the status parameter indicates successful booking
+            if (status === 'booked_successfully') {
+                // Show the message div and style it for success
+                bookingMessageDiv.style.display = 'block';
+                bookingMessageDiv.style.backgroundColor = '#d4edda'; // Light green background
+                bookingMessageDiv.style.color = '#155724'; // Dark green text
+                bookingMessageDiv.style.borderColor = '#c3e6cb'; // Green border
+                bookingMessageDiv.innerText = '✅ Your trip has been successfully booked!';
+
+                // Optional: Fade out the message after a few seconds
+                setTimeout(() => {
+                    bookingMessageDiv.style.transition = 'opacity 1s ease-out'; // Smooth fade-out effect
+                    bookingMessageDiv.style.opacity = '0'; // Start fading out
+
+                    // Hide the element completely after fade-out
+                    setTimeout(() => {
+                        bookingMessageDiv.style.display = 'none';
+                        bookingMessageDiv.style.opacity = '1'; // Reset opacity for next time it might appear
+                        // Remove the status parameter from the URL for a cleaner look
+                        history.replaceState({}, document.title, window.location.pathname);
+                    }, 1000); // Duration of the fade-out transition (matches CSS transition)
+                }, 5000); // Message displayed for 5 seconds before fading
+            }
+        });
+    </script>
+</body>
+</html>

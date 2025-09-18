@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feedback</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .feedback-container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); width: 100%; max-width: 400px; }
+        .feedback-container h1 { text-align: center; color: #333; margin-bottom: 20px; }
+        .feedback-container label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+        .feedback-container input[type="text"],
+        .feedback-container input[type="email"],
+        .feedback-container textarea { width: calc(100% - 20px); padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .feedback-container input[type="submit"] { background-color: #28a745; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; }
+        .feedback-container input[type="submit"]:hover { background-color: #218838; }
+        .message { padding: 10px; margin-bottom: 20px; border-radius: 5px; text-align: center; display: none; } /* Initially hidden */
+        .message.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    </style>
+</head>
+<body>
+    <div class="feedback-container">
+        <div id="feedbackMessage" class="message"></div>
+
+        <h1>Give Us Your Feedback</h1>
+        <form method="POST" action="feedback.php">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="feedbk">Your Feedback:</label>
+            <textarea id="feedbk" name="feedbk" rows="5" required></textarea>
+
+            <input type="submit" name="submit" value="Send Feedback">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+            const feedbackMessageDiv = document.getElementById('feedbackMessage');
+
+            if (status === 'feedback_submitted') {
+                feedbackMessageDiv.style.display = 'block';
+                feedbackMessageDiv.classList.add('success');
+                feedbackMessageDiv.innerText = 'Thank you for your feedback! ✅';
+
+                // Optional: Fade out the message after a few seconds
+                setTimeout(() => {
+                    feedbackMessageDiv.style.transition = 'opacity 1s ease-out';
+                    feedbackMessageDiv.style.opacity = '0';
+                    setTimeout(() => {
+                        feedbackMessageDiv.style.display = 'none';
+                        feedbackMessageDiv.style.opacity = '1';
+                        history.replaceState({}, document.title, window.location.pathname); // Clean URL
+                    }, 1000);
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
