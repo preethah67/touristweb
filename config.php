@@ -15,7 +15,7 @@ if (!$conn) {
 }
 
 // Define Admin Contact Details
-// As clarified, Dinesh S is admin, email 'contact@yourdomain.com' for now, phone 9025650323
+// As clarified, Preetha H is admin, email 'contact@yourdomain.com' for now, phone 1234567890
 $adminName = "Preetha H";
 $adminEmail = "contact@yourdomain.com"; // Placeholder, update with actual domain email later
 $adminPhone = "1234567890";
