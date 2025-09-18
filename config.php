@@ -16,9 +16,9 @@ if (!$conn) {
 
 // Define Admin Contact Details
 // As clarified, Dinesh S is admin, email 'contact@yourdomain.com' for now, phone 9025650323
-$adminName = "Dinesh S";
+$adminName = "Preetha H";
 $adminEmail = "contact@yourdomain.com"; // Placeholder, update with actual domain email later
-$adminPhone = "9025650323";
+$adminPhone = "1234567890";
 
 // Set default timezone for PHP (optional but good practice)
 date_default_timezone_set('Asia/Kolkata'); // Setting to Chennai's timezone (IST)
